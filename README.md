@@ -48,6 +48,8 @@ pip install -r requirements.txt
 
 ### 3️⃣ Setup the Database
 - Create a new MySQL database for the project.
+- In map.html file, add your API key here:
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_SECRETKEY_HERE&libraries=places"></script>
 - Import the provided SQL file to set up the required tables:
   ```bash
   mysql -u <username> -p <database_name> < database_setup.sql
