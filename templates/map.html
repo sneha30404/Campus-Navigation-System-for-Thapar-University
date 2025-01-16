@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Findr - Campus Map</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAys2LjOVrWdoTntHPeiqz7ySQA1oSG4NQ&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_SECRETKEY_HERE&libraries=places"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -40,14 +40,13 @@
         let map;
 
         function initMap() {
-            const thaparCenter = { lat: 30.3546, lng: 76.3623 }; // Coordinates for Thapar University
+            const thaparCenter = { lat: 30.3546, lng: 76.3623 };
 
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 16,
                 center: thaparCenter,
             });
 
-            // Optionally add a marker at the center of the map
             const marker = new google.maps.Marker({
                 position: thaparCenter,
                 map: map,
