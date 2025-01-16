@@ -1,0 +1,221 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Outdoor Campus Navigation</title>
+</head>
+<body>
+    <h1>Welcome to Outdoor Campus Navigation</h1>
+    <a href="/outdoor_navigation">Plan Your Route</a>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Findr - Campus Navigation</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Findr</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/outdoor_navigation">Search</a></li>
+        <li><a href="/map">Map</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Welcome to Findr</h1>
+      <p>Navigate your campus with ease. Start your journey now!</p>
+      <a href="/outdoor_navigation" class="cta-button">Get Started</a>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Findr. All rights reserved.</p>
+  </footer>
+</body>
+</html> -->
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Findr - Campus Navigation</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script> 
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Findr</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/outdoor_navigation">Search</a></li>
+        <li><a href="/map">Map</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Welcome to Findr</h1>
+      <p>Navigate your campus with ease. Start your journey now!</p>
+      <a href="/outdoor_navigation" class="cta-button">Get Started</a>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Findr. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.body.innerHTML += '<div class="snowflakes" aria-hidden="true"><div class="snowflake">❄️</div><div class="snowflake">❄️</div><div class="snowflake">❄️</div><div class="snowflake">❄️</div></div>';
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Findr - Campus Navigation</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Snowflakes -->
+</head>
+<body>
+  <script>
+    // Dynamically create snowflakes
+    for (let i = 0; i < 10; i++) {
+        let snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = "❄"; // Unicode snowflake symbol
+        document.body.appendChild(snowflake);
+    }
+
+  function navigateToLocation() {
+    const destination = "LT Area"; // Fixed end location
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+
+                // Set current location as start location
+                const startLocation = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+                // Display the route details or log them
+                console.log(`Start Location: ${startLocation}`);
+                console.log(`End Location: ${destination}`);
+
+                // Construct a query string for further processing
+                const queryString = `?start_lat=${latitude}&start_lng=${longitude}&destination=${encodeURIComponent(destination)}`;
+
+                // Redirect to the search page with the query string
+                window.location.href = `/outdoor_navigation${queryString}`;
+            },
+            (error) => {
+                alert("Error fetching current location: " + error.message);
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+
+</script>
+  </script>
+  <header>
+    <nav>
+      <div class="logo">Findr</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/outdoor_navigation">Search</a></li>
+        <li><a href="map.html">Map</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Christmas Greeting -->
+  <section class="christmas-greeting">
+    <h2>Merry Christmas!</h2>
+    <p>May this festive season bring happiness, peace, and love to you and your family</p>
+  </section>
+
+  <!-- Christmas Tree -->
+  <section class="christmas-tree">
+    <p style="font-size: 3rem; text-align: center;">🎄🎅🎄</p> <!-- Emoji tree -->
+  </section>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to Findr</h1>
+      <p>Navigate your campus with ease. Start your journey now!</p>
+      <a href="/outdoor_navigation" class="cta-button">Get Started</a>
+    </section>
+
+    <section class="popular-locations">
+      <h2>Popular Locations to Visit</h2>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('LT Block')">
+          <img src="/static/ltarea.jpg" alt="LT Block">
+          <p>LT Block</p>
+        </a>
+      </div>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('COS')">
+          <img src="/static/cos.jpg" alt="COS">
+          <p>COS</p>
+        </a>
+      </div>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('Hostel Q')">
+          <img src="/static/hosdtel.jpg" alt="Hostel Q">
+          <p>Hostel Q</p>
+        </a>
+      </div>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('Nava Nalanda Central Library')">
+          <img src="/static/library.jpg" alt="Nava Nalanda Central Library">
+          <p>Nava Nalanda Central Library</p>
+        </a>
+      </div>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('Synthetic Track')">
+          <img src="/static/track.webp" alt="Synthetic Track">
+          <p>Synthetic Track</p>
+        </a>
+      </div>
+      <div class="location">
+        <a href="#" onclick="navigateToLocation('TAN')">
+          <img src="/static/tan.jpg" alt="TAN">
+          <p>TAN</p>
+        </a>
+      </div>
+    </section>
+    
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Findr. All rights reserved.</p>
+  </footer>
+
+  <!-- Snowflakes JS -->
+  
+</body>
+</html>

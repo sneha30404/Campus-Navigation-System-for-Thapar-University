@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thapar Campus Navigator</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAys2LjOVrWdoTntHPeiqz7ySQA1oSG4NQ&libraries=places"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ececec, #ffffff);
+            color: #333;
+        }
+
+        header {
+            background: #0078d4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-card {
+            background-image: url('static/thapar-campus.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 385px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .welcome-card h2 {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .plan-route {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .plan-route h3 {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            justify-content: center;
+            display: flex;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #0078d4;
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Custom Styles for Current Location Button */
+        #currentLocationBtn {
+            background-color: #ff9800;
+            color: white;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #currentLocationBtn:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Thapar University Campus Navigator
+    </header>
+    
+
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Explore Thapar</h2>
+        </div>
+
+        <div class="plan-route">
+            <h3>Plan Your Route</h3>
+            <form id="routeForm" action="/outdoor_navigation" method="POST">
+                <div class="input-group">
+                    <input type="text" id="start_location" name="start_location" placeholder="Enter start location" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="end_location" name="end_location" placeholder="Enter end location" required>
+                </div>
+                <button type="button" id="currentLocationBtn">Use Current Location</button>
+                <button type="submit">Show Route</button>
+            </form>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <footer>
+        &copy; 2024 Thapar Campus Navigator. All rights reserved.
+    </footer>
+
+    <script>
+        let map;
+        let directionsService;
+        let directionsRenderer;
+        let userMarker;
+
+        const campusBounds = {
+            north: 30.3600,
+            south: 30.3500,
+            east: 76.3745,
+            west: 76.3570,
+        };
+
+        function initMap() {
+            const thaparCenter = { lat: 30.3546, lng: 76.3623 };
+
+            // Initialize map
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: thaparCenter,
+                restriction: {
+                    latLngBounds: campusBounds,
+                    strictBounds: true,
+                },
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            // Add Autocomplete for start and end locations
+            const startInput = document.getElementById("start_location");
+            const endInput = document.getElementById("end_location");
+            const autocompleteStart = new google.maps.places.Autocomplete(startInput, {
+                bounds: campusBounds,
+                strictBounds: true,
+            });
+            const autocompleteEnd = new google.maps.places.Autocomplete(endInput, {
+                bounds: campusBounds,
+                strictBounds: true,
+            });
+
+            // Attach event listener for route calculation
+            document.getElementById("routeForm").addEventListener("submit", (event) => {
+                event.preventDefault();
+                calculateRoute();
+            });
+
+            // Add current location functionality
+            document.getElementById("currentLocationBtn").addEventListener("click", fetchCurrentLocation);
+        }
+
+        function fetchCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+
+                        // Check if current location is within the bounds
+                        if (
+                            latitude >= campusBounds.south &&
+                            latitude <= campusBounds.north &&
+                            longitude >= campusBounds.west &&
+                            longitude <= campusBounds.east
+                        ) {
+                            // Reverse geocoding for address
+                            const geocoder = new google.maps.Geocoder();
+                            const latLng = { lat: latitude, lng: longitude };
+
+                            geocoder.geocode({ location: latLng }, (results, status) => {
+                                if (status === "OK" && results[0]) {
+                                    const currentAddress = results[0].formatted_address;
+                                    document.getElementById("start_location").value = currentAddress;
+                                    // Optionally, center the map to the current location
+                                    map.setCenter({ lat: latitude, lng: longitude });
+                                } else {
+                                    alert("Could not fetch address from location.");
+                                }
+                            });
+                        } else {
+                            alert("Your current location is outside the campus bounds.");
+                        }
+                    },
+                    (error) => {
+                        alert("Error fetching current location: " + error.message);
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+        function calculateRoute() {
+            const start = document.getElementById("start_location").value;
+            const end = document.getElementById("end_location").value;
+
+            if (start && end) {
+                directionsService.route(
+                    {
+                        origin: start,
+                        destination: end,
+                        travelMode: google.maps.TravelMode.WALKING,
+                    },
+                    (result, status) => {
+                        if (status === google.maps.DirectionsStatus.OK) {
+                            directionsRenderer.setDirections(result);
+                        } else {
+                            alert("Could not display route due to: " + status);
+                        }
+                    }
+                );
+            } else {
+                alert("Please enter both start and end locations.");
+            }
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>

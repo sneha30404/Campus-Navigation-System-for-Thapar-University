@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Findr - Campus Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAys2LjOVrWdoTntHPeiqz7ySQA1oSG4NQ&libraries=places"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #0078d4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Findr - Campus Map
+    </header>
+
+    <div id="map"></div>
+
+    <script>
+        let map;
+
+        function initMap() {
+            const thaparCenter = { lat: 30.3546, lng: 76.3623 }; // Coordinates for Thapar University
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+                center: thaparCenter,
+            });
+
+            // Optionally add a marker at the center of the map
+            const marker = new google.maps.Marker({
+                position: thaparCenter,
+                map: map,
+                title: "Thapar University",
+            });
+        }
+    </script>
+</body>
+</html>

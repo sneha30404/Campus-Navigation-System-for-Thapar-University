@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Outdoor Navigation</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAys2LjOVrWdoTntHPeiqz7ySQA1oSG4NQ"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Outdoor Navigation</h1>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: { lat: 30.3546, lng: 76.3623 } // Thapar University Center
+            });
+            directionsRenderer.setMap(map);
+
+            var start = "{{ start }}";
+            var end = "{{ end }}";
+
+            directionsService.route(
+                {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.WALKING // Change to DRIVING if needed
+                },
+                function (response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        alert("Unable to find a route: " + status);
+                    }
+                }
+            );
+        }
+        window.onload = initMap;
+    </script>
+</body>
+</html>
