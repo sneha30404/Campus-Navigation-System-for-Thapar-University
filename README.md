@@ -5,12 +5,12 @@ Welcome to the **Campus Navigation System**! This project is your one-stop solut
 
 ---
 
-## Overview
+## 🌟 Overview
 The **Campus Navigation System** is designed to make campus navigation effortless. Whether you're a new student, visitor, or faculty member, this application ensures you can find your way around the campus with ease. 
 
 ---
 
-## Features
+## ✨ Features
 - **Indoor and Outdoor Navigation**: Navigate confidently within buildings and across campus grounds.
 - **Search Functionality**: Quickly locate buildings, rooms, or landmarks.
 - **User-Friendly Interface**: A sleek and intuitive design ensures smooth interaction.
