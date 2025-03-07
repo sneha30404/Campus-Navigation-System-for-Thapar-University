@@ -1,16 +1,10 @@
 # Campus-Navigation-System-for-Thapar-University
 
-
-Welcome to the **Campus Navigation System**! This project is your one-stop solution for navigating your college campus seamlessly, both indoors and outdoors.
-
----
-
-## 🌟 Overview
-The **Campus Navigation System** is designed to make campus navigation effortless. Whether you're a new student, visitor, or faculty member, this application ensures you can find your way around the campus with ease. 
+The **Campus Navigation System** is designed to make campus navigation in Thapar Institute of Engineering and Technology effortless. Whether you're a new student, visitor, or faculty member, this application ensures you can find your way around the campus with ease. 
 
 ---
 
-## ✨ Features
+## Features
 - **Indoor and Outdoor Navigation**: Navigate confidently within buildings and across campus grounds.
 - **Search Functionality**: Quickly locate buildings, rooms, or landmarks.
 - **User-Friendly Interface**: A sleek and intuitive design ensures smooth interaction.
@@ -33,20 +27,20 @@ Before you begin, make sure you have the following installed on your system:
 ## Installation and Setup
 Follow these simple steps to get started:
 
-### 1️⃣ Clone the Repository
+### Clone the Repository
 Run the following commands in your terminal:
 ```bash
 git clone <https://github.com/sneha30404/Campus-Navigation-System-for-Thapar-University>
 cd <Campus-Navigation-System-for-Thapar-University>
 ```
 
-### 2️⃣ Install Dependencies
+### Install Dependencies
 Install the required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Setup the Database
+### Setup the Database
 - Create a new MySQL database for the project.
 - In map.html file, add your API key here:
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_SECRETKEY_HERE&libraries=places"></script>
@@ -56,13 +50,13 @@ pip install -r requirements.txt
   ```
 - Update the database connection details in `config.py`.
 
-### 4️⃣ Run the Application
+### Run the Application
 Start the Flask server:
 ```bash
 python app.py
 ```
 
-### 5️⃣ Access the Application
+### Access the Application
 Open your browser and navigate to:
 ```bash
 http://127.0.0.1:5000
